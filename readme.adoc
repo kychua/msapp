@@ -1,0 +1,13 @@
+# Readme
+
+. Generate Spring Boot project using Spring Initializr.
+. Declare project as parent project by changing `packaging` in `pom.xml` to `pom` (instead of `jar`).
+. Add a Eureka service registry. 
++
+A service registry is a database that stores the instances and locations of services. Service instances register themselves with the registry. Clients/routers that need access to a service then query the registry to find an available instance.footnote:[https://microservices.io/patterns/service-registry.html] This way, we need not hard code the IP addresses of different services and can use services with dynamically assigned IP addresses (e.g. cloud platforms for autoscaling)footnote:[http://javaonfly.blogspot.com/2017/07/microservicespring-cloud-eureka-server.html]. Eureka also provides mid-tier load balancing.
++
+.. Create new Maven module project `registration` with `msapp` as the parent.
+.. Add `registration` as a module to the parent pom.
+.. Add https://www.baeldung.com/spring-cloud-netflix-eureka[relevant dependencies] and Spring Boot Maven Plugin to registration's `pom.xml`.
+.. Add `ServiceRegistrationServer` and `registration-server.yml` as per https://spring.io/blog/2015/07/14/microservices-with-spring[tutorial].
+.. Compile with maven and check that it runs at `http://localhost:1111`.
