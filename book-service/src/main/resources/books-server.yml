@@ -2,12 +2,24 @@
 spring:
   application:
      name: books-service
-
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  datasource:
+    url: jdbc:mysql://localhost:3306/ebookshop?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: myuser
+    password: xxxx
+  main:
+    allow-bean-definition-overriding: true   # needed for Spring Boot 2.1
+    
 # Discovery Server Access
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:1111/eureka/
+  instance:
+    preferIpAddress: true
 
 # HTTP Server
 server:

@@ -14,5 +14,17 @@ A service registry is a database that stores the instances and locations of serv
 . Add a microservice, `books-service`.
 .. Create Maven module project and update parent POM.
 .. Add https://spring.io/guides/gs/service-registration-and-discovery/[relevant dependencies].
-.. Add `BooksServer.java` and config file `books-server.yml`.
+.. Add `BooksServer.java` and config file `books-server.yml`. In `books-server.yml`, configure to use IP address instead of hostname. (Eureka's generated hostnames use underscores, which Java does not allow.)
++
+[source,xml]
+----
+instance:
+  preferIpAddress: true
+----
++
 .. Run `registry`, then `books-service`. Check that `books-service` is listed under Applications in `http://localhost:1111`, with details listed in `http://localhost:1111/eureka/apps/books-service`.
+. Add more microservices as necessary. See below for communication between microservices.
+
+
+
+Microservices can communicate in various ways. The most basic way is through Spring's `RestTemplate` annotated with `@LoadBalanced`, so that the `RestTemplate` uses a `RibbonLoadBalancerClient` for interactions. This way, logical hosts (e.g. `BOOKS-SERVICE`) are automatically resolved to the actual hosts. footnote:[https://stackoverflow.com/a/43022727] See https://spring.io/blog/2015/07/14/microservices-with-spring[this tutorial] for an example.
