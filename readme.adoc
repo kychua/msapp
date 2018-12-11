@@ -28,3 +28,5 @@ instance:
 
 
 Microservices can communicate in various ways. The most basic way is through Spring's `RestTemplate` annotated with `@LoadBalanced`, so that the `RestTemplate` uses a `RibbonLoadBalancerClient` for interactions. This way, logical hosts (e.g. `BOOKS-SERVICE`) are automatically resolved to the actual hosts. footnote:[https://stackoverflow.com/a/43022727] See https://spring.io/blog/2015/07/14/microservices-with-spring[this tutorial] for an example.
+
+Another method is using Feign, which abstracts away the REST API details. Given a microservice, we create an interface for each microservice it calls annotated with `@FeignClient` with the name (`spring.application.name`) of the microservice to be called. Declare the endpoints to be used within the interface. Finally, add `@EnableFeignClients` to the main class. Instead of calling the microservices via `RestTemplate`, we can now call the methods listed in the interface (which are implemented by Feign). See https://piotrminkowski.wordpress.com/2018/04/26/quick-guide-to-microservices-with-spring-boot-2-0-eureka-and-spring-cloud/[this article] for an example.

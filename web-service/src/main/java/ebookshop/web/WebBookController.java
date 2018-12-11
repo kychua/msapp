@@ -6,21 +6,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ebookshop.domain.Book;
-import ebookshop.service.WebBookService;
+import ebookshop.service.BookClient;
 
 @RestController
 public class WebBookController {
 
-	protected WebBookService bookService;
+	protected BookClient bookClient;
 
 	@Autowired
-	public WebBookController(WebBookService bookService) {
-		this.bookService = bookService;
+	public WebBookController(BookClient bookClient) {
+		this.bookClient = bookClient;
 	}
 
 	@RequestMapping("/books/{id}")
 	public Book byNumber(@PathVariable("id") String id) {
-		Book book = bookService.getByNumber(id);
+		Book book = bookClient.getByNumber(id);
 		return book;
 	}
 }
