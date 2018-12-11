@@ -10,11 +10,8 @@
 	<name>msapp</name>
 	<description>Demo project for Spring Boot</description>
 
-	<properties>
-		<java.version>1.8</java.version>
-	</properties>
-
 	<modules>
 		<module>registry</module>
+		<module>book-service</module>
 	</modules>
 </project>

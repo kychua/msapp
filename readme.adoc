@@ -11,3 +11,8 @@ A service registry is a database that stores the instances and locations of serv
 .. Add https://www.baeldung.com/spring-cloud-netflix-eureka[relevant dependencies] and Spring Boot Maven Plugin to registration's `pom.xml`.
 .. Add `ServiceRegistrationServer` and `registration-server.yml` as per https://spring.io/blog/2015/07/14/microservices-with-spring[tutorial].
 .. Compile with maven and check that it runs at `http://localhost:1111`.
+. Add a microservice, `books-service`.
+.. Create Maven module project and update parent POM.
+.. Add https://spring.io/guides/gs/service-registration-and-discovery/[relevant dependencies].
+.. Add `BooksServer.java` and config file `books-server.yml`.
+.. Run `registry`, then `books-service`. Check that `books-service` is listed under Applications in `http://localhost:1111`, with details listed in `http://localhost:1111/eureka/apps/books-service`.
