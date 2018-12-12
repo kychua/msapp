@@ -7,16 +7,7 @@ spring:
       discovery:
         locator:
           enabled: true
-      routes:
-      - id: books-service
-        uri: lb://books-service
-        predicates:
-        - Path=/api/books/**
-      - id: web-service
-        uri: lb://web-service
-        predicates:
-        - Path=/books/**
-          
+
 # Discovery Server Access
 eureka:
   client:
