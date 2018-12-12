@@ -24,7 +24,12 @@ instance:
 +
 .. Run `registry`, then `books-service`. Check that `books-service` is listed under Applications in `http://localhost:1111`, with details listed in `http://localhost:1111/eureka/apps/books-service`.
 . Add more microservices as necessary. See below for communication between microservices.
-
+. Add an API Gateway using Spring Cloud Gateway.
++
+An API Gateway serves as a single entry point for client calls by routing requests to the appropriate microservices. Using an API Gateway reduces coupling between clients and microservices, decreases number of (client-server) round trips required, and simplifies handling of cross-cutting concerns like authorization. Read https://microservices.io/patterns/apigateway.html[these] https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/architect-microservice-container-applications/direct-client-to-microservice-communication-versus-the-api-gateway-pattern[articles] to find out more.
++
+We use Spring Cloud Gateway instead of Zuul for this project so that we can support the reactive stack footnote:[https://stackoverflow.com/a/47094859].
++
 
 
 ## Communication between microservices

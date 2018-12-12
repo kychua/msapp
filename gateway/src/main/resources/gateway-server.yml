@@ -1,0 +1,30 @@
+# Spring properties
+spring:
+  application:
+     name: gateway-service
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+      - id: books-service
+        uri: lb://books-service
+        predicates:
+        - Path=/api/books/**
+      - id: web-service
+        uri: lb://web-service
+        predicates:
+        - Path=/books/**
+          
+# Discovery Server Access
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1111/eureka/
+  instance:
+    preferIpAddress: true
+
+# HTTP Server
+server:
+  port: 4444   # HTTP (Tomcat) port
