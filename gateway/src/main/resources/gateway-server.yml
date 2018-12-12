@@ -1,5 +1,26 @@
-# Spring properties
+server:
+  port: 4444   # HTTP (Tomcat) port
+
 spring:
+  application:
+     name: gateway-service
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1111/eureka/
+  instance:
+    preferIpAddress: true
+
+    
+---
+spring:
+  profiles: docker
   application:
      name: gateway-service
   cloud:
@@ -12,10 +33,6 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:1111/eureka/
+      defaultZone: http://registry-container:1111/eureka/
   instance:
     preferIpAddress: true
-
-# HTTP Server
-server:
-  port: 4444   # HTTP (Tomcat) port

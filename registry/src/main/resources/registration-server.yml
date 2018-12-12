@@ -2,10 +2,10 @@
 eureka:
   instance:
     hostname: localhost
-  client:  # Not a client, don't register with yourself (unless running
-           # multiple discovery servers for redundancy)
+  client:
     registerWithEureka: false
     fetchRegistry: false
 
 server:
   port: 1111   # HTTP (Tomcat) port
+  

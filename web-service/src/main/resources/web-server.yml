@@ -1,9 +1,10 @@
-# Spring Properties
+server:
+  port: 3333   # HTTP (Tomcat) port
+  
 spring:
   application:
      name: web-service
 
-# Discovery Server Access
 eureka:
   client:
     serviceUrl:
@@ -11,6 +12,17 @@ eureka:
   instance:
     preferIpAddress: true
 
-# HTTP Server
-server:
-  port: 3333   # HTTP (Tomcat) port
+
+---
+spring:
+  profiles: docker
+  application:
+     name: web-service
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://registry-container:1111/eureka/
+  instance:
+    preferIpAddress: true
+
