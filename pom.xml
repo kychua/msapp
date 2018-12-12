@@ -13,5 +13,6 @@
 	<modules>
 		<module>registry</module>
 		<module>book-service</module>
+		<module>web-service</module>
 	</modules>
 </project>
