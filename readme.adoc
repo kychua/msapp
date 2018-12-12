@@ -30,6 +30,8 @@ An API Gateway serves as a single entry point for client calls by routing reques
 +
 We use Spring Cloud Gateway instead of Zuul for this project so that we can support the reactive stack footnote:[https://stackoverflow.com/a/47094859].
 +
+.. Create a service (`pom.xml`, `Application.java` with Eureka, config file).
+.. Add routing info in Java or ym. See https://github.com/spencergibb/monolith-to-microservices[sample project].
 
 
 ## Communication between microservices
