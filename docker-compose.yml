@@ -3,6 +3,7 @@ version: '3'
 services:
   registry-container:
     image: springdemo/registry
+    build: registry
     ports:
       - "1111:1111"
 
@@ -23,6 +24,7 @@ services:
       
   book-service-container:
     image: springdemo/book-service
+    build: book-service
     depends_on:
       - mysql-docker-container
       - registry-container
@@ -31,6 +33,7 @@ services:
     
   web-service-container:
     image: springdemo/web-service
+    build: web-service
     depends_on:
       - book-service-container
       - registry-container
@@ -39,6 +42,7 @@ services:
   
   gateway-container:
     image: springdemo/gateway
+    build: gateway
     depends_on:
       - registry-container
     ports:

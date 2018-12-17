@@ -10,10 +10,18 @@
 	<name>msapp</name>
 	<description>Demo project for Spring Boot</description>
 
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.1.1.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+
 	<modules>
 		<module>registry</module>
 		<module>book-service</module>
 		<module>web-service</module>
 		<module>gateway</module>
+		<module>weather-service</module>
 	</modules>
 </project>

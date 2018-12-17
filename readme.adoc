@@ -92,5 +92,7 @@ docker run -it \
 
 ### Using Docker-compose
 
-. For each module, run `mvn clean package dockerfile:build`.
-. In main project, run `docker-compose up`.
+In main project,
+
+. Run `mvn clean install`.
+. Run `docker-compose up`.
