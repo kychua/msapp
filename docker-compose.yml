@@ -48,4 +48,23 @@ services:
     ports:
       - "4444:4444"
       
-      
+  cassandra-docker-container:
+    image: cassandra:latest
+    ports:
+      - "9042:9042"
+    expose:
+      - "9042"
+    volumes:
+      - /data/cassandra
+
+  weather-service-container:
+    image: springdemo/weather-service
+    build: weather-service
+    depends_on:
+      - cassandra-docker-container
+      - registry-container
+    ports:
+      - "5555:5555"
+    volumes:
+      - /data/weather-service-msapp
+    restart: always

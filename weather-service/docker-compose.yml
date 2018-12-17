@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  cassandra-docker-container:
+    image: cassandra:latest
+    ports:
+      - "9042:9042"
+    volumes:
+      - /data/cassandra
+  weather-service-container:
+    image: springdemo/weather-service
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+      - cassandra-docker-container
+    ports:
+      - 5555:5555
+    volumes:
+      - /data/weather-service-msapp

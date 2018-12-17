@@ -44,7 +44,61 @@ Microservices can communicate in various ways. The most basic way is through Spr
 
 Another method is using Feign, which abstracts away the REST API details. Given a microservice, we create an interface for each microservice it calls annotated with `@FeignClient` with the name (`spring.application.name`) of the microservice to be called. Declare the endpoints to be used within the interface. Finally, add `@EnableFeignClients` to the main class. Instead of calling the microservices via `RestTemplate`, we can now call the methods listed in the interface (which are implemented by Feign). See https://piotrminkowski.wordpress.com/2018/04/26/quick-guide-to-microservices-with-spring-boot-2-0-eureka-and-spring-cloud/[this article] for an example.
 
+## Database
 
+### Cassandra
+
+Resources:
+
+* https://web.archive.org/web/20100426172209/http://arin.me/blog/wtf-is-a-supercolumn-cassandra-data-model[Data modeling] (outdated terminology)
+* https://wiki.apache.org/cassandra/DataModel[Resources] for learning data modeling
+* https://stackoverflow.com/questions/24949676/difference-between-partition-key-composite-key-and-clustering-key-in-cassandra[Types of keys]
+
+#### Adding Cassandra
+
+. Add the following dependency to `pom.xml`:
++
+[source, xml]
+----
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-data-cassandra-reactive</artifactId>
+</dependency>
+----
++
+. Create the entities, annotating `@Table` and the primary keys.
+. Create the repository, extending a reactive repository.
+. Add configuration details to yml file.
+. Add configuration by extending `AbstractCassandraConfiguration`.
+** To automatically create keyspace, follow https://lankydanblog.com/2017/12/03/startup-and-shutdown-scripts-in-spring-data-cassandra/[this tutorial].
+** To automatically create tables, use
++
+[source, java]
+----
+@Override
+public SchemaAction getSchemaAction() {
+	return SchemaAction.CREATE_IF_NOT_EXISTS;
+}
+----
+** If your entity classes are in a different package from that of your config class, override `getEntityBasePackages()` to return the packages containing entities annotated with `@Table`. This way, Spring knows which packages to scan.
+
+[NOTE]
+====
+When using Cassandra with Eureka, we need to also add `metrics-core` from `io.dropwizard.metrics` as a dependencyfootnote:[https://stackoverflow.com/a/53465934].
+Otherwise, we get the error message:
+
+____
+UnsatisfiedDependencyException: Error creating bean with name 'reactiveCassandraTemplate' defined in class path resource ...
+____
+====
+
+[NOTE]
+====
+When using Cassandra with Docker compose,
+
+* Set `restart: always` for the service that uses  Cassandra in `docker-compose.yml`.
+* Override `getContactPoints()` in the config class if using different contact points for different profiles (e.g. in docker vs locally).
+====
 
 ## Deploying 
 

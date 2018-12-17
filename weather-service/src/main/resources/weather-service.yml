@@ -1,0 +1,38 @@
+server:
+  port: 5555   # HTTP (Tomcat) port
+  
+spring:
+  application:
+    name: weather-service
+  data:
+    cassandra:
+      keyspaceName: weather_keyspace
+      contactPoints: localhost
+      port: 9042
+      schemaAction: CREATE_IF_NOT_EXISTS
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1111/eureka/
+  instance:
+    preferIpAddress: true
+
+---
+spring:
+  profiles: docker
+  application:
+    name: weather-service
+  data:
+    cassandra:
+      keyspaceName: weather_keyspace
+      contactPoints: cassandra-docker-container
+      port: 9042
+      schemaAction: CREATE_IF_NOT_EXISTS
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://registry-container:1111/eureka/
+  instance:
+    preferIpAddress: true
