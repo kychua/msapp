@@ -51,6 +51,7 @@ Another method is using Feign, which abstracts away the REST API details. Given 
 ### Running manually
 
 Run mvn spring-boot:run for each of the projects
+
 . registry
 . book-service
 . web-service
