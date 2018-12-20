@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  redis-docker-container:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - /data/redis
+  voting-service-container:
+    image: springdemo/voting-service
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+      - redis-docker-container
+    ports:
+      - "6666:6666"
+    volumes:
+      - /data/voting-service-msapp

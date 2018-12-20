@@ -100,6 +100,38 @@ When using Cassandra with Docker compose,
 * Override `getContactPoints()` in the config class if using different contact points for different profiles (e.g. in docker vs locally).
 ====
 
+
+### Redis
+
+Redis is an in-memory data structure store, which makes it fast. They can be used for features that require higher performance than what is provided by traditional databases e.g. caching footnote:[https://www.credera.com/blog/technology-insights/java/redis-explained-5-minutes-less/]. However, it does not support many of the features that relational databases have.
+
+#### Key characteristics
+
+Redis keeps all the data in memory, so reading and writing is much faster. However, this means that the size of the memory limits the size of dataset allowed.footnote:[https://redis.io/topics/faq] The database is saved to the disk at regular (configurable) intervals.
+
+Redis supports multiple data structures, each of which has a key and value. Keys are strings used to identify data, and values are the actual data. Values can be anything (strings, integers, XML etc.) - they are simply considered byte arrays and are never queried by Redis.
+
+Being an in-memory database that supports multiple data structures and limited queries means Redis can be significantly faster than other database systems. However, it may not be suitable for all use cases. For example use cases for Redis, read http://oldblog.antirez.com/post/take-advantage-of-redis-adding-it-to-your-stack.html[this article].
+
+(Adapted from Chapter 1 of https://www.openmymind.net/redis.pdf[The Little Redis Book]. Read it to find out more.)
+
+#### Adding Redis
+
+. Add the following dependency to `pom.xml`:
++
+[source, xml]
+----
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-data-redis-reactive</artifactId>
+</dependency>
+----
++
+. Create a Java class for Redis configuration and configure `redisConnectionFactory`.
+. Create the entities, annotating `@RedisHash(...)`. You may annotate with `@Id` but there is no support for auto-generated ids. Instead, consider using UUID to generate random ids when saving items to database.
+. Create redis template beans in the config class, specifying how the entities will be converted to corresponding Redis values (e.g. objects serialized using json).
+. Create a repository. All methods must be implemented from scratch since reactive repositories are https://jira.spring.io/browse/DATAREDIS-831[not supported] for Redis. Operations are done using the redis templates configured previously.
+
 ## Deploying 
 
 ### Running manually

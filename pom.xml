@@ -23,5 +23,6 @@
 		<module>web-service</module>
 		<module>gateway</module>
 		<module>weather-service</module>
+		<module>voting-service</module>
 	</modules>
 </project>
